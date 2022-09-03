@@ -7,9 +7,9 @@ const callCategory = () => {
 callCategory();
 
 const showCategory = (data) => {
+  const category = document.getElementById("category");
   data.forEach((categoryData) => {
     const { category_name, category_id } = categoryData;
-    const category = document.getElementById("category");
     const li = document.createElement("li");
     li.classList.add("text-xl");
 
@@ -21,10 +21,40 @@ const showCategory = (data) => {
 };
 
 const newsData = async (element) => {
-  console.log(element.id);
-  const response = await fetch(
-    `https://openapi.programming-hero.com/api/news/category/${element.id}`
-  );
-  const data = await response.json();
-  return data;
+  //   console.log(element.id);
+  fetch(`https://openapi.programming-hero.com/api/news/category/${element.id}`)
+    .then((res) => res.json())
+    .then((data) => newsDetails(data.data, element));
+};
+
+const newsDetails = (data, element) => {
+  console.log(data);
+  const categoryLength = document.getElementById("category-length");
+  categoryLength.innerHTML = `
+    <h1 class="p-5 text-xl">${data.length} items found for category ${element.innerText}</h1>
+    `;
+  const newsCart = document.getElementById("news-cart");
+  newsCart.innerHTML = ``;
+  data.forEach((news) => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+              <div class="card card-side bg-base-100 shadow-xl my-5">
+                <figure>
+                  <img src=${news.thumbnail_url} class="p-3 w-52" alt="Movie" />
+                </figure>
+                <div class="card-body">
+                  <h2 class="card-title">${news.title}</h2>
+                  <p>${
+                    news.details.length > 300
+                      ? news.details.slice(0, 300) + "..."
+                      : news.details
+                  }</p>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-primary">Watch</button>
+                  </div>
+                </div>
+              </div>
+          `;
+    newsCart.appendChild(div);
+  });
 };
