@@ -33,7 +33,10 @@ const newsData = async (element) => {
 };
 
 const newsDetails = (data, element) => {
-  //   console.log(data);
+  //   reverseData = data.sort("total_view");
+  const sortedArray = data.sort((a, b) =>
+    a.total_view < b.total_view ? 1 : -1
+  );
   const spinner = document.getElementById("spinner");
   spinner.classList.remove("flex");
   spinner.classList.add("hidden");
