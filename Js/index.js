@@ -22,7 +22,6 @@ const showCategory = (data) => {
 };
 
 const newsData = async (element) => {
-  //   console.log(element.id);
   const spinner = document.getElementById("spinner");
   spinner.classList.remove("hidden");
   spinner.classList.add("flex");
@@ -33,7 +32,6 @@ const newsData = async (element) => {
 };
 
 const newsDetails = (data, element) => {
-  //   reverseData = data.sort("total_view");
   const sortedArray = data.sort((a, b) =>
     a.total_view < b.total_view ? 1 : -1
   );
@@ -51,7 +49,7 @@ const newsDetails = (data, element) => {
   data.forEach((news) => {
     const div = document.createElement("div");
     div.innerHTML = `
-              <div class="card card-side bg-base-100 shadow-xl my-5">
+              <div class="card card-side bg-base-100 shadow-xl my-5 block lg:flex">
                 <figure>
                   <img src=${news.thumbnail_url} class="p-3 w-52" alt="Movie" />
                 </figure>
