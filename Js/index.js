@@ -76,7 +76,9 @@ const newsDetails = (data, element) => {
                         : news.total_view
                     }</p>
                   </div>
-                    <label for="my-modal-3" class="btn modal-button">Read More</label>
+                    <label for="my-modal-3" id="${
+                      news._id
+                    }" onclick="callModal(this)" class="btn modal-button">Read More</label>
                   </div>
                 </div>
               </div>
@@ -84,4 +86,31 @@ const newsDetails = (data, element) => {
     newsCart.appendChild(div);
   });
 };
-//total_view
+
+const callModal = (id) => {
+  fetch(`https://openapi.programming-hero.com/api/news/${id.id}`)
+    .then((res) => res.json())
+    .then((data) => openModal(data.data));
+};
+
+const openModal = (data) => {
+  //   console.log(data);
+  const modal = document.getElementById("modal");
+  modal.innerHTML = ``;
+  const modalDiv = document.createElement("div");
+  modalDiv.classList.add("modal-box");
+  modalDiv.classList.add("relative");
+  modalDiv.innerHTML = `
+  <label
+  for="my-modal-3"
+  class="btn btn-sm btn-circle absolute right-2 top-2"
+  >✕</label>
+    <h3 class="text-lg font-bold">
+    ${data[0].title}
+    </h3>
+    <p class="py-4">
+    ${data[0].details}
+    </p>
+  `;
+  modal.appendChild(modalDiv);
+};
