@@ -49,8 +49,24 @@ const newsDetails = (data, element) => {
                       ? news.details.slice(0, 300) + "..."
                       : news.details
                   }</p>
-                  <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Watch</button>
+                  <div class="card-actions flex justify-between ">
+                  <div class="flex items-center">
+                    <img src=${
+                      news.author.img
+                    } alt="" class="rounded-full w-10 mx-3"/>
+                    <h1>${
+                      news.author.name === null
+                        ? "No data found"
+                        : news.author.name
+                    }</h1>
+                  </div>
+                  <div class="flex items-center">
+                  <i class="fa-solid fa-eye mx-3"></i>
+                  <p>${
+                    news.total_view === null ? "No data found" : news.total_view
+                  }</p>
+                  </div>
+                    <button class="btn btn-primary">Read More</button>
                   </div>
                 </div>
               </div>
@@ -58,3 +74,4 @@ const newsDetails = (data, element) => {
     newsCart.appendChild(div);
   });
 };
+//total_view
